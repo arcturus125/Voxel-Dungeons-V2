@@ -13,7 +13,7 @@ public class EnemyComponent : MonoBehaviour
 
     public void Use()
     {
-        enemyReference.health = 0;
+        enemyReference.health = 0; //TODO: this needs changing
         bool isDed = enemyReference.CheckforKill();
         if (isDed)
         {

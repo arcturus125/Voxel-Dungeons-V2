@@ -7,6 +7,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//IMPORT:: attatch this script to a gameobject that is always active in the scene- either the player or camera
 public class Dialogue : MonoBehaviour
 {
     /// Static

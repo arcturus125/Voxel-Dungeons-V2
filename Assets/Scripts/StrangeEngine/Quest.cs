@@ -134,6 +134,7 @@ public class Quest
     {
         foreach( Item reward in rewards)
         {
+            //IMPORT:: change this line of code to add items to the instance of your inventory if you arent using the engine for your inventory
             Player.playerInv.AddItem(reward);
         }
     }

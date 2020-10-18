@@ -56,6 +56,8 @@ public class Inventory
             InventorySlot newSlot = new InventorySlot(pItem);
             inv.Add(newSlot);
         }
+
+        InventoryMenu.singleton.UpdateInventoryUI(); // update the UI for the inventory
     }
     //remove and item from the inventory
     public void RemoveItem(Item pItem)
@@ -89,6 +91,8 @@ public class Inventory
         {
             inv.Remove(inv[searchInvByItem(pItem)]);
         }
+
+        InventoryMenu.singleton.UpdateInventoryUI();  // update the UI for the inventory
     }
 }
 public class InventorySlot

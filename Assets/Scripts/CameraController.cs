@@ -60,9 +60,14 @@ public class CameraController : MonoBehaviour
             // stop camera from going outside the limits
             y = ClampAngle(y, yMinLimit, yMaxLimit);
 
+            //only use scrollwheel for camera when NOT in menus
+            float scroll = 0;
+            if (!UIController.isCursorVisible)
+                scroll = Input.GetAxis("Mouse ScrollWheel");
+
             //Important Maths... No Touch!
             Quaternion rotation = Quaternion.Euler(y, x, 0);
-            distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * 5, distanceMin, distanceMax);
+            distance = Mathf.Clamp(distance - scroll * 5, distanceMin, distanceMax);
 
             //camera jumps forward when line of sight is broken so the camera doesnt clip through objects (as much)
             RaycastHit hit;

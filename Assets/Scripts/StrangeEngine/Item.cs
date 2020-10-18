@@ -8,6 +8,13 @@ using UnityEngine;
 
 public class Item
 {
+    public enum ItemType
+    {
+        Item,
+        Skill,
+        Equipment
+    }
+    public ItemType type;
     public int ID;
     public string itemName;
     public string info;

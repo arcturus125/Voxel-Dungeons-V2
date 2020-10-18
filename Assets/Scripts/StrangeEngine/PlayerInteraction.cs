@@ -6,8 +6,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//IMPORT:: attach this script to your player GameObject
 public class PlayerInteraction : MonoBehaviour
 {
+
     public float interactionDistance = 7.5f; // the distance in which the user can interact with a UsableObject
     public KeyCode useKey = KeyCode.F; // this is the key the user will press to use/ interact with an object. Default f
     public static List<Collider> previousColliders = new List<Collider>();
