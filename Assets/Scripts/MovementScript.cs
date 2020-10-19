@@ -30,25 +30,25 @@ public class MovementScript : MonoBehaviour
         anim.SetBool("isWalking", false);
         if (Input.GetKey(KeyCode.W))
         {
-            rb.AddRelativeForce(new Vector3(0.0f, 0.0f, speed * Time.deltaTime), ForceMode.VelocityChange);
+            rb.AddRelativeForce(new Vector3(0.0f, 0.0f, speed * Time.deltaTime), ForceMode.Force);
             anim.SetBool("isWalking", true);
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            rb.AddRelativeForce(new Vector3(0.0f, 0.0f, -speed * Time.deltaTime), ForceMode.VelocityChange);
+            rb.AddRelativeForce(new Vector3(0.0f, 0.0f, -speed * Time.deltaTime), ForceMode.Force);
             anim.SetBool("isWalking", true);
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            rb.AddRelativeForce(new Vector3(-speed * Time.deltaTime, 0.0f, 0.0f), ForceMode.VelocityChange);
+            rb.AddRelativeForce(new Vector3(-speed * Time.deltaTime, 0.0f, 0.0f), ForceMode.Force);
             anim.SetBool("isWalking", true);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            rb.AddRelativeForce(new Vector3(speed * Time.deltaTime, 0.0f, 0.0f), ForceMode.VelocityChange);
+            rb.AddRelativeForce(new Vector3(speed * Time.deltaTime, 0.0f, 0.0f), ForceMode.Force);
             anim.SetBool("isWalking", true);
         }
 

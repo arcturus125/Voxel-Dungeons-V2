@@ -10,14 +10,7 @@ using Image = UnityEngine.UI.Image;
 public class MenuUIController : MonoBehaviour
 {
 
-
-    public  enum InventoryTypes
-    {
-        Items,
-        Skills,
-        Equipment
-    }
-    public static InventoryTypes SelectedInventory;
+    public static Item.ItemType SelectedInventory;
 
     [Header("Sprites")]
     public Sprite Clicked_Menu;
@@ -56,14 +49,17 @@ public class MenuUIController : MonoBehaviour
 
 
     [Header("Panels")]
-    public GameObject InventoriesPanel;
+    public GameObject InventoryMenusPanel;
+    public GameObject InventoryPanel; 
 
     private Color grey = new Color(50.0f/ 255.0f, 50.0f / 255.0f, 50.0f / 255.0f);
+    private bool CharMenu = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        InventoriesPanel.SetActive(false);
+        InventoryMenusPanel.SetActive(false);
+        InventoryPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -75,28 +71,78 @@ public class MenuUIController : MonoBehaviour
 
     public void OnCharMenuClicked()
     {
-        MenuButton.GetComponent<Image>().sprite = Clicked_Menu;
-        MenuButton.GetComponentsInChildren<Image>()[1].sprite = Social_White;
-        InventoriesPanel.SetActive(true);
+        if (!CharMenu)
+        {
+            MenuButton.GetComponent<Image>().sprite = Clicked_Menu;                // if Character menu is activated
+            MenuButton.GetComponentsInChildren<Image>()[1].sprite = Social_White;  //
+            InventoryMenusPanel.SetActive(true);                                   // open the sub-menus and change the buttons colour to orange
+            CharMenu = true;                                                       //
+        }
+        else
+        {
+            MenuButton.GetComponent<Image>().sprite = Normal_Menu;                 // if charcter menu is deactivated
+            MenuButton.GetComponentsInChildren<Image>()[1].sprite = Social_grey;   //
+            InventoryMenusPanel.SetActive(false);                                  // hide the sub-menus and change the bbutton colour to white
+            CharMenu = false;                                                      //
+            InventoryPanel.SetActive(false);                                       // 
+
+                                                                                   //
+            UpdateItemsButton(false);                                              // change the sub-menus button colours to their default
+            UpdateSkillsButton(false);                                             //
+            UpdateEquipsButton(true);                                              //
+        }
     }
 
     public void OnItemsInvClicked()
     {
-        UpdateItemsButton(true);
+        bool isClicked = true;
+        //toggle the inventory window each time the button is clicked
+        if (InventoryPanel.activeInHierarchy && (int)SelectedInventory == 1)
+        {
+            InventoryPanel.SetActive(false);
+            isClicked = false;
+        }
+        else
+            InventoryPanel.SetActive(true);
+        
+        //open the correct  inventory window
+        UpdateItemsButton(isClicked);
         UpdateSkillsButton(false);
         UpdateEquipsButton(false);
     }
     public void OnSkillsInvClicked()
     {
+        bool isClicked = true;
+        //toggle the inventory window each time the button is clicked
+        if (InventoryPanel.activeInHierarchy && (int)SelectedInventory == 2)
+        {
+            InventoryPanel.SetActive(false);
+            isClicked = false;
+        }
+        else
+            InventoryPanel.SetActive(true);
+
+        //open the correct  inventory window
         UpdateItemsButton(false);
-        UpdateSkillsButton(true);
+        UpdateSkillsButton(isClicked);
         UpdateEquipsButton(false);
     }
     public void OnEquipsInvClicked()
     {
+        bool isClicked = true;
+        //toggle the inventory window each time the button is clicked
+        if (InventoryPanel.activeInHierarchy && (int)SelectedInventory == 3)
+        {
+            InventoryPanel.SetActive(false);
+            isClicked = false;
+        }
+        else
+            InventoryPanel.SetActive(true);
+
+        //open the correct  inventory window
         UpdateItemsButton(false);
         UpdateSkillsButton(false);
-        UpdateEquipsButton(true);
+        UpdateEquipsButton(isClicked);
     }
 
     private void UpdateItemsButton(bool isClicked)
@@ -106,13 +152,15 @@ public class MenuUIController : MonoBehaviour
             Items.GetComponent<Image>().sprite = Clicked_Submenu;
             Items.GetComponentsInChildren<Image>()[1].sprite = Item_White;
             Items.GetComponentInChildren<Text>().color = Color.white;
-            SelectedInventory = InventoryTypes.Items;
+            SelectedInventory = Item.ItemType.Item;
+            InventoryMenu.singleton.UpdateInventoryUI();
         }
         else
         {
             Items.GetComponent<Image>().sprite = Normal_Submenu;
             Items.GetComponentsInChildren<Image>()[1].sprite = Item_grey;
             Items.GetComponentInChildren<Text>().color = grey;
+
         }
     }
     private void UpdateSkillsButton(bool isClicked)
@@ -122,7 +170,8 @@ public class MenuUIController : MonoBehaviour
             Skills.GetComponent<Image>().sprite = Clicked_Submenu_Point;
             Skills.GetComponentsInChildren<Image>()[1].sprite = Skills_White;
             Skills.GetComponentInChildren<Text>().color = Color.white;
-            SelectedInventory = InventoryTypes.Skills;
+            SelectedInventory = Item.ItemType.Skill;
+            InventoryMenu.singleton.UpdateInventoryUI();
         }
         else
         {
@@ -138,7 +187,8 @@ public class MenuUIController : MonoBehaviour
             Equips.GetComponent<Image>().sprite = Clicked_Submenu;
             Equips.GetComponentsInChildren<Image>()[1].sprite = Equipment_White;
             Equips.GetComponentInChildren<Text>().color = Color.white;
-            SelectedInventory = InventoryTypes.Equipment;
+            SelectedInventory = Item.ItemType.Equipment;
+            InventoryMenu.singleton.UpdateInventoryUI();
         }
         else
         {

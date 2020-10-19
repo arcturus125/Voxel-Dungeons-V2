@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.04064481, g: 0.030874107, b: 0.012910826, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031461657, g: 0.0023896368, b: 0.0009992899, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1037,7 +1037,8 @@ MonoBehaviour:
   Items: {fileID: 1966291579}
   Skills: {fileID: 1726589646}
   Equips: {fileID: 1414039974}
-  InventoriesPanel: {fileID: 1335786421}
+  InventoryMenusPanel: {fileID: 1335786421}
+  InventoryPanel: {fileID: 1160898345296126906}
 --- !u!1 &614358213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1576,10 +1577,10 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.8
     m_Bias: 0.05
     m_NormalBias: 0
     m_NearPlane: 0.2
@@ -1626,13 +1627,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: -0.30114657, y: 0.37424347, z: -0.7503589, w: 0.45410803}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.1887067, y: 0.84542215, z: -0.39276275, w: 0.30885062}
+  m_LocalPosition: {x: 0, y: 40.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 16.746, y: 55.781002, z: -108.728004}
+  m_LocalEulerAnglesHint: {x: 51.322002, y: 143.24301, z: 7.0280004}
 --- !u!114 &705507996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1645,7 +1646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebfe09d26a639d548bb7483d7a240f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 0.001
+  Speed: 0.1
 --- !u!1001 &705820808
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2217,8 +2218,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xSpeed: 180
   ySpeed: 180
-  jumpHeight: 20
-  speed: 20
+  jumpHeight: 12
+  speed: 1200
   rb: {fileID: 0}
   canJump: 0
 --- !u!4 &866494336
@@ -3371,7 +3372,7 @@ GameObject:
   - component: {fileID: 1335786424}
   - component: {fileID: 1335786423}
   m_Layer: 5
-  m_Name: inventoriesPanel
+  m_Name: inventoryMenuPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6164,7 +6165,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1160898345058807790}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999976
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
