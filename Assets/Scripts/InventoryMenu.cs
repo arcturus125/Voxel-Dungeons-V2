@@ -26,7 +26,7 @@ public class InventoryMenu : MonoBehaviour
     }
     public void UpdateInventoryUI()
     {
-        Debug.Log("INV UI UPDATED :" + Player.playerInv.inv.Count);
+        //Debug.Log("INV UI UPDATED :" + Player.playerInv.inv.Count);
         foreach(InventoryMenuItem imi in prefabList)
         {
             DestroyImmediate(imi.gameObject);
@@ -35,13 +35,16 @@ public class InventoryMenu : MonoBehaviour
         int index = 0;
         foreach( InventorySlot item in Player.playerInv.inv)
         {
-            InventoryMenuItem itemListing = Instantiate(_itemListing, _content);
-            itemListing.SetItemListingInfo(item, Player.playerInv.inv.IndexOf(item));
-            itemListing.transform.Translate(new Vector2(0, (-nextListingOffset * index)));
-            prefabList.Add(itemListing);
+            if ((int)item.item.type == (int)MenuUIController.SelectedInventory)
+            {
+                InventoryMenuItem itemListing = Instantiate(_itemListing, _content);
+                itemListing.SetItemListingInfo(item, Player.playerInv.inv.IndexOf(item));
+                itemListing.transform.Translate(new Vector2(0, (-nextListingOffset * index)));
+                prefabList.Add(itemListing);
 
 
-            index++;
+                index++;
+            }
         }
         RectTransform r = _content.GetComponent<RectTransform>();
         r.sizeDelta = new Vector2(

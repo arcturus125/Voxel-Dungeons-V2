@@ -16,6 +16,6 @@ public class lighting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.Rotate(Speed, 0, 0);
+        this.transform.Rotate(0, Speed, 0);
     }
 }
