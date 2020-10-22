@@ -54,6 +54,7 @@ public class ItemDatabase : MonoBehaviour
             100,
             new Dictionary<string, int>
             {
+                { "Damage", 9000}
             }
             ),
         new Item
@@ -68,6 +69,18 @@ public class ItemDatabase : MonoBehaviour
                 {"hunger", 4 }
             },
             true
+            ),
+        new Weapon
+            (
+            6,
+            "sword 2",
+            "this is a weapon",
+            10,
+            new Dictionary<string, int>
+            {
+            },
+            10,
+            Resources.Load<GameObject>("Weapons/maha")
             )
     };
 

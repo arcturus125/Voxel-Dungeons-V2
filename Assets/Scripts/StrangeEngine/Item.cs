@@ -44,3 +44,15 @@ public class Item
     }
 
 }
+public class Weapon : Item
+{
+    public int Damage;
+    public GameObject WeaponModelPrefab;
+
+    public Weapon(int pID, string pName, string pInfo, int pWorth, Dictionary<string, int> pStatsfloat, int pDamage, GameObject pWeaponPrefab) : base(ItemType.Equipment,pID, pName, pInfo,pWorth,pStatsfloat)
+    {
+        Damage = pDamage;
+        WeaponModelPrefab = pWeaponPrefab;
+    }
+
+}

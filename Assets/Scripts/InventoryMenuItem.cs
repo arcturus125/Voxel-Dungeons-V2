@@ -34,6 +34,14 @@ public class InventoryMenuItem : MonoBehaviour
     {
         Debug.Log("ButtonClicked");
         //showEquipButton();
+
+        //If equipment inventory is open equip clicked item
+        if (MenuUIController.SelectedInventory == Item.ItemType.Equipment) {
+            GameObject prefab = Player.playerInv.inv[inventoryIndexOfItem].convertItemToWeapon().WeaponModelPrefab;
+            Player.singleton.EquipWeapon(prefab);
+            Player.singleton.weaponEquippedIndex = inventoryIndexOfItem;
+        }
+        
     }
 
     // shows the equip button next to the inventory item that was clicked

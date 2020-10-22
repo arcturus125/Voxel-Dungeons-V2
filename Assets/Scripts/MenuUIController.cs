@@ -89,7 +89,7 @@ public class MenuUIController : MonoBehaviour
                                                                                    //
             UpdateItemsButton(false);                                              // change the sub-menus button colours to their default
             UpdateSkillsButton(false);                                             //
-            UpdateEquipsButton(true);                                              //
+            UpdateEquipsButton(false);                                             //
         }
     }
 

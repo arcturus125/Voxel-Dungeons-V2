@@ -24,16 +24,16 @@ public class Enemy : ScriptableObject
         enemyName = pName;
     }
 
-    //check if the enemy has been killed
-    public bool CheckforKill()
-    {
-        if (health <= 0)
-        {
-            OnKill();
-            return true;
-        }
-        return false;
-    }
+    ////check if the enemy has been killed
+    //public bool CheckforKill()
+    //{
+    //    if (health <= 0)
+    //    {
+    //        OnKill();
+    //        return true;
+    //    }
+    //    return false;
+    //}
 
 
     //run when the enemy is killed

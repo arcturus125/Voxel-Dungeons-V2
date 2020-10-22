@@ -4,18 +4,25 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class EnemyComponent : MonoBehaviour
 {
-    public Enemy enemyReference;
+    public Enemy enemyReference; // th ereference to the original enemy file. changing these wil change default details of the enemy
 
+    int health;
 
-    public void Use()
+    // when the enenym spawns in
+    public void Start()
     {
-        enemyReference.health = 0; //TODO: this needs changing
-        bool isDed = enemyReference.CheckforKill();
-        if (isDed)
+        health = enemyReference.health;
+    }
+
+    public void Damage(int damageAmount)
+    {
+        health -= damageAmount;
+        if(health <= 0)
         {
             Kill();
         }
