@@ -7,7 +7,6 @@ public class john : MonoBehaviour
 
     public Enemy slime;
 
-
     string hello = "Hello there!";
     DialogueChoice hiJohn;
     Dialogue questDialogue;
@@ -23,8 +22,11 @@ public class john : MonoBehaviour
     {
         //items
         Item sword = ItemDatabase.SearchDatabaseByName("Sword");
-        Item example = ItemDatabase.SearchDatabaseByName("Example Items");
+        Item example = ItemDatabase.SearchDatabaseByName("Example Item");
         Item apple = ItemDatabase.SearchDatabaseByName("Apple");
+        Item example2 = ItemDatabase.SearchDatabaseByName("Example Skill");
+        Item example3 = ItemDatabase.SearchDatabaseByName("Example Equipment");
+        Item sword2 = ItemDatabase.SearchDatabaseByID(6);
 
         // end v
         KillQuest killSlimeObjectives = new KillQuest("Kill a slime", slime, 1);
@@ -49,6 +51,8 @@ public class john : MonoBehaviour
 
 
         Player.playerInv.AddItem(example);
+        Player.playerInv.AddItem(example2);
+        Player.playerInv.AddItem(example3);
         Player.playerInv.AddItem(sword);
         Player.playerInv.AddItem(apple);
         Player.playerInv.AddItem(apple);
@@ -60,10 +64,8 @@ public class john : MonoBehaviour
         Player.playerInv.AddItem(apple);
 
         Player.playerInv.AddItem(sword);
-        Player.playerInv.AddItem(sword);
-        Player.playerInv.AddItem(sword);
-        Player.playerInv.AddItem(sword);
-        Player.playerInv.AddItem(sword);
+        Player.playerInv.AddItem(sword2);
+
     }
 
     // Update is called once per frame
@@ -106,7 +108,7 @@ public class john : MonoBehaviour
         {
            // hiJohn.ShowDialogue();
         }
-        
-        
+
+
     }
 }

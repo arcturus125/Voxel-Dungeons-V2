@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -10,14 +11,14 @@ public class UIController : MonoBehaviour
     public static GameObject DialoguePanel;
     public static GameObject DialogueChoices;
     public static GameObject QuestHelperPanel;
+    public static GameObject MenuPanel;
 
 
     public static bool isCursorVisible = true; //when true, the user can use mouse to navigate menus without rotating the camera or player in game
-
+    public static bool areMenusOpen = false;
     
     void Start()
     {
-        ToggleMenus(); //default to cursor invisible on start
 
         InteractionPanel = GameObject.Find("InteractionPanel");
         InteractionPanel.SetActive(false);
@@ -31,7 +32,13 @@ public class UIController : MonoBehaviour
         QuestHelperPanel = GameObject.Find("QuestHelperPanel");
         QuestHelperPanel.SetActive(false);
 
+        MenuPanel = GameObject.Find("MenuPanel");
+        MenuPanel.SetActive(false);
+
         ShowQuestHelper();
+
+
+        ToggleMenus(); //default to cursor invisible on start
     }
     
 
@@ -54,7 +61,11 @@ public class UIController : MonoBehaviour
             UnityEngine.Cursor.lockState = CursorLockMode.None;  
         else                                         
             UnityEngine.Cursor.lockState = CursorLockMode.Locked; 
-        UnityEngine.Cursor.visible = isCursorVisible;           
+        UnityEngine.Cursor.visible = isCursorVisible;
+        areMenusOpen = isCursorVisible;
+
+        MenuPanel.SetActive(areMenusOpen);
+        
 
     }
 

@@ -10,9 +10,9 @@ public class Item
 {
     public enum ItemType
     {
-        Item,
-        Skill,
-        Equipment
+        Item = 1,
+        Skill = 2,
+        Equipment = 3
     }
     public ItemType type;
     public int ID;
@@ -23,22 +23,36 @@ public class Item
     //public Sprite icon;
     public Dictionary<string, int> itemStats = new Dictionary<string, int>(); // "stats" that come in pairs, a name (string) and a number. for example ("weight", 22)
 
-    public Item(int pID, string pName, string pInfo, int pWorth, Dictionary<string,int> pStats)
+    public Item(ItemType pType, int pID, string pName, string pInfo, int pWorth, Dictionary<string,int> pStats)
     {
+        type = pType;
         ID = pID;
         itemName = pName;
         info = pInfo;
         worth = pWorth;
         itemStats = pStats;
     }
-    public Item(int pID, string pName, string pInfo, int pWorth, Dictionary<string, int> pStats, bool pIsStackable)
+    public Item(ItemType pType, int pID, string pName, string pInfo, int pWorth, Dictionary<string, int> pStats, bool pIsStackable)
     {
+        type = pType;
         ID = pID;
         itemName = pName;
         info = pInfo;
         worth = pWorth;
         itemStats = pStats;
         isStackable = pIsStackable;
+    }
+
+}
+public class Weapon : Item
+{
+    public int Damage;
+    public GameObject WeaponModelPrefab;
+
+    public Weapon(int pID, string pName, string pInfo, int pWorth, Dictionary<string, int> pStatsfloat, int pDamage, GameObject pWeaponPrefab) : base(ItemType.Equipment,pID, pName, pInfo,pWorth,pStatsfloat)
+    {
+        Damage = pDamage;
+        WeaponModelPrefab = pWeaponPrefab;
     }
 
 }

@@ -109,4 +109,9 @@ public class InventorySlot
             isStackable = true;
         }
     }
+
+    public Weapon convertItemToWeapon()
+    {
+        return (Weapon)item;
+    }
 }
