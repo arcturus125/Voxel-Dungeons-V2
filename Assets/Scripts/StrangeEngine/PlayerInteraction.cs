@@ -16,7 +16,7 @@ public class PlayerInteraction : MonoBehaviour
     public static List<Collider> previousColliders = new List<Collider>();
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         Collider[] nearbyColliders = Physics.OverlapSphere(this.transform.position, interactionDistance);  // get every collider within interactionDistance
         List<Collider> copyOfNearbyColliders =  ArrayToList(ref nearbyColliders); // make a copy of the nearby colliders that can be maipulated
@@ -43,11 +43,14 @@ public class PlayerInteraction : MonoBehaviour
         for (int g = 0; g < previousColliders.Count; g++)               
         {                                                               
             for (int h = 0; h < nearbyColliders.Length; h++)            
-            {                                                           
-                if (previousColliders[g] == nearbyColliders[h])         
-                {                                                       
-                    previousColliders.Remove(previousColliders[g]);     
-                }                                                       
+            {
+                if (g >= 0 && g < previousColliders.Count)
+                {
+                    if (previousColliders[g] == nearbyColliders[h])
+                    {
+                        previousColliders.Remove(previousColliders[g]);
+                    }
+                }
             }                                                           
         }
         for (int f = 0; f < previousColliders.Count; f++)                                                         

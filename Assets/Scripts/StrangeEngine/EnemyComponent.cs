@@ -12,7 +12,6 @@ public class EnemyComponent : MonoBehaviour
     public Enemy enemyReference; // th ereference to the original enemy file. changing these wil change default details of the enemy
 
     int health;
-
     // when the enenym spawns in
     public void Start()
     {
@@ -29,6 +28,25 @@ public class EnemyComponent : MonoBehaviour
     }
     void Kill()
     {
+        List<Item> droppedItems = new List<Item>();
+        for (int i = 0; i < enemyReference.drops.Length; i++)
+        {
+            float chance = UnityEngine.Random.Range(0.0f, 1.0f);
+            if (chance <= enemyReference.dropChances[i])
+            {
+                droppedItems.Add(enemyReference.drops[i]);
+            
+            }
+
+        }
+
+        if (droppedItems.Count > 0)
+        {
+            GameObject itemObject = Instantiate(Resources.Load<GameObject>("DroppedItem"));
+            itemObject.GetComponent<DroppedItemScript>().InstantiateDrops(droppedItems);
+            itemObject.transform.position = this.transform.position;
+        }
+
         Destroy(this.gameObject);
         PlayerInteraction.previousColliders.Remove(this.gameObject.GetComponent<Collider>());
     }

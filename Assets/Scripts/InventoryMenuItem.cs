@@ -11,10 +11,11 @@ public class InventoryMenuItem : MonoBehaviour
     public static GameObject EquipButtonGameObject;
 
     public int inventoryIndexOfItem;
-    public float buttonOffset = 180.0f;
+    public float buttonOffsetY = 32;
+    public float buttonOffsetX = 160.0f;
     //public GameObject panel;
     public Text Button_Text;
-    //public GameObject equipbutton;
+    public GameObject equipbutton;
     // TODO: item image/ sprite
 
     public void SetItemListingInfo(InventorySlot slot, int index)
@@ -33,50 +34,53 @@ public class InventoryMenuItem : MonoBehaviour
     public void OnItemClicked()
     {
         Debug.Log("ButtonClicked");
-        //showEquipButton();
 
         //If equipment inventory is open equip clicked item
         if (MenuUIController.SelectedInventory == Item.ItemType.Equipment) {
-            GameObject prefab = Player.playerInv.inv[inventoryIndexOfItem].convertItemToWeapon().WeaponModelPrefab;
-            Player.singleton.EquipWeapon(prefab);
-            Player.singleton.weaponEquippedIndex = inventoryIndexOfItem;
+            showEquipButton();
         }
         
     }
 
-    // shows the equip button next to the inventory item that was clicked
-    //private void showEquipButton()
-    //{
-    //    // generate and position button
-    //    if(EquipButtonGameObject)
-    //    {
-    //        DestroyImmediate(EquipButtonGameObject);
-    //    }
-    //    EquipButtonGameObject = Instantiate(equipbutton); // TODO: delete button when user scrolls
-    //    EquipButtonGameObject.name = "EquipItem  button";
-    //    SelectedItemID = inventoryIndexOfItem;
-    //    EquipButtonGameObject.transform.SetParent(GameObject.Find("InventoryPanel").transform);
-    //    EquipButtonGameObject.transform.position = new Vector2(
-    //        this.transform.position.x + buttonOffset,
-    //        this.transform.position.y);
+    //shows the equip button next to the inventory item that was clicked
+    private void showEquipButton()
+    {
+        // generate and position button
+        if (EquipButtonGameObject)
+        {
+            DestroyImmediate(EquipButtonGameObject);
+        }
+        EquipButtonGameObject = Instantiate(equipbutton); // TODO: delete button when user scrolls
+        EquipButtonGameObject.name = "EquipItem  button";
+        SelectedItemID = inventoryIndexOfItem;
+        EquipButtonGameObject.transform.SetParent(GameObject.Find("InventoryPanel").transform);
+        EquipButtonGameObject.transform.position = new Vector2(
+            this.transform.position.x + buttonOffsetX,
+            this.transform.position.y + buttonOffsetY);
+        EquipButtonGameObject.GetComponent<EquipButton>().referenceToMenuItem = this;
 
-    //    //// if weapon is already equipped
-    //    //if (InventoryMenuItem.SelectedItemID == PlayerData.data.equippedWeaponIndex)
-    //    //{
-    //    //    EquipButtonGameObject.GetComponentInChildren<Text>().text = "Equipped";
-    //    //    EquipButtonGameObject.GetComponentInChildren<Text>().color = new Color(255, 255, 255, 255);
-    //    //    EquipButtonGameObject.GetComponentInChildren<Button>().interactable = false;
-    //    //    EquipButtonGameObject.GetComponentInChildren<Image>().color = new Color(255, 0, 99, 255);
-    //    //}
-    //    //// if item is not already equipped
-    //    //else
-    //    //{
-    //    //    EquipButtonGameObject.GetComponentInChildren<Text>().text = "Equip";
-    //    //    EquipButtonGameObject.GetComponentInChildren<Text>().color = new Color(255, 255, 255, 255);
-    //    //    EquipButtonGameObject.GetComponentInChildren<Button>().interactable = true;
-    //    //    EquipButtonGameObject.GetComponentInChildren<Image>().color = new Color(0, 204, 205, 255);
-    //    //}
+        //// if weapon is already equipped
+        //if (InventoryMenuItem.SelectedItemID == PlayerData.data.equippedWeaponIndex)
+        //{
+        //    EquipButtonGameObject.GetComponentInChildren<Text>().text = "Equipped";
+        //    EquipButtonGameObject.GetComponentInChildren<Text>().color = new Color(255, 255, 255, 255);
+        //    EquipButtonGameObject.GetComponentInChildren<Button>().interactable = false;
+        //    EquipButtonGameObject.GetComponentInChildren<Image>().color = new Color(255, 0, 99, 255);
+        //}
+        //// if item is not already equipped
+        //else
+        //{
+        //    EquipButtonGameObject.GetComponentInChildren<Text>().text = "Equip";
+        //    EquipButtonGameObject.GetComponentInChildren<Text>().color = new Color(255, 255, 255, 255);
+        //    EquipButtonGameObject.GetComponentInChildren<Button>().interactable = true;
+        //    EquipButtonGameObject.GetComponentInChildren<Image>().color = new Color(0, 204, 205, 255);
+        //}
 
 
-    //}
+    }
+
+    public void OnDestroy()
+    {
+        Destroy(EquipButtonGameObject);
+    }
 }

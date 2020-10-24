@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Maha
+  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  type: 3
+  ID: 1
+  itemName: Maha
+  info: this is an axe
+  worth: 0
+  isStackable: 0
+  Damage: 10
+  WeaponModelPrefab: {fileID: 414644056495394334, guid: 7a883c350192fd94db2102cbcd0498ad,
+    type: 3}
