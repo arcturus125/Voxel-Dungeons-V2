@@ -5,8 +5,12 @@ using UnityEngine;
 public class john : MonoBehaviour
 {
 
-    public Enemy slime;
+    //items
+    public Item apple ;
+    public Item sword2;
 
+
+    public Enemy slime;
 
     string hello = "Hello there!";
     DialogueChoice hiJohn;
@@ -21,19 +25,13 @@ public class john : MonoBehaviour
 
     void Start()
     {
-        //items
-        Item sword = ItemDatabase.SearchDatabaseByName("Sword");
-        Item example = ItemDatabase.SearchDatabaseByName("Example Item");
-        Item apple = ItemDatabase.SearchDatabaseByName("Apple");
-        Item example2 = ItemDatabase.SearchDatabaseByName("Example Skill");
-        Item example3 = ItemDatabase.SearchDatabaseByName("Example Equipment");
 
         // end v
         KillQuest killSlimeObjectives = new KillQuest("Kill a slime", slime, 1);
         talkToFrank = new TalkQuest("Talk to Frank", Frank.hiFrank);
         List<QuestObjective> objectives = new List<QuestObjective> {killSlimeObjectives, talkToFrank };
         killSlimeQuest = new Quest("Kill slime", "Kill a slime", objectives);
-        killSlimeQuest.setReward(sword);
+        killSlimeQuest.setReward(sword2);
 
         questDialogue = new Dialogue("I have a quest for you", killSlimeQuest);
         Dialogue bye = new Dialogue("Goodbye then.");
@@ -50,10 +48,6 @@ public class john : MonoBehaviour
         //hiJohn = new DialogueChoice(hello, replies, branches);
 
 
-        Player.playerInv.AddItem(example);
-        Player.playerInv.AddItem(example2);
-        Player.playerInv.AddItem(example3);
-        Player.playerInv.AddItem(sword);
         Player.playerInv.AddItem(apple);
         Player.playerInv.AddItem(apple);
         Player.playerInv.AddItem(apple);
@@ -63,7 +57,8 @@ public class john : MonoBehaviour
         Player.playerInv.AddItem(apple);
         Player.playerInv.AddItem(apple);
 
-        Player.playerInv.AddItem(sword);
+        Player.playerInv.AddItem(sword2);
+        Player.playerInv.AddItem(sword2);
 
     }
 
@@ -81,7 +76,7 @@ public class john : MonoBehaviour
     }
     public void OnNearby()
     {
-        UIController.ShowInteractionTooltip();
+        UIController.ShowInteractionTooltip("press F to talk to john");
     }
     public void NoLongerNearby()
     {
@@ -107,7 +102,7 @@ public class john : MonoBehaviour
         {
            // hiJohn.ShowDialogue();
         }
-        
-        
+
+
     }
 }

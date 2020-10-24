@@ -6,7 +6,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item
+
+[CreateAssetMenu(fileName = "Item", menuName = "StrangeEngine/Item", order = 2)]
+public class Item : ScriptableObject
 {
     public enum ItemType
     {
@@ -41,6 +43,21 @@ public class Item
         worth = pWorth;
         itemStats = pStats;
         isStackable = pIsStackable;
+    }
+
+}
+
+[CreateAssetMenu(fileName = "Item", menuName = "StrangeEngine/Weapon", order = 3)]
+public class Weapon : Item
+{
+    public int Damage;
+    public GameObject WeaponModelPrefab;
+
+
+    public Weapon(int pID, string pName, string pInfo, int pWorth, Dictionary<string, int> pStatsfloat, int pDamage, GameObject pWeaponPrefab) : base(ItemType.Equipment,pID, pName, pInfo,pWorth,pStatsfloat)
+    {
+        Damage = pDamage;
+        WeaponModelPrefab = pWeaponPrefab;
     }
 
 }

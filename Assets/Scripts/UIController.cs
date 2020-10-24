@@ -49,6 +49,15 @@ public class UIController : MonoBehaviour
         {
             ToggleMenus();
         }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (!isCursorVisible)
+            {
+                ToggleMenus();
+            }
+            MenuUIController.singleton.InventoryQuickOpen();
+        }
     }
 
     /// <summary>
@@ -65,7 +74,16 @@ public class UIController : MonoBehaviour
         areMenusOpen = isCursorVisible;
 
         MenuPanel.SetActive(areMenusOpen);
-        
+
+
+        if (!areMenusOpen)
+        {
+            MenuUIController.singleton.CloseAllMenus();
+        }
+        else
+        {
+            MenuUIController.currentMenuCentered = MenuUIController.MenuCentered.Main;
+        }
 
     }
 
@@ -75,6 +93,12 @@ public class UIController : MonoBehaviour
     public static void ShowInteractionTooltip()
     {
         InteractionPanel.SetActive(true);
+        InteractionPanel.GetComponentInChildren<Text>().text = "Press F to Interact";
+    }
+    public static void ShowInteractionTooltip(string message)
+    {
+        InteractionPanel.SetActive(true);
+        InteractionPanel.GetComponentInChildren<Text>().text = message;
     }
     /// <summary>
     /// hide "press f to interact"

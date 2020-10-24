@@ -9,7 +9,19 @@ using Image = UnityEngine.UI.Image;
 
 public class MenuUIController : MonoBehaviour
 {
+    public enum MenuCentered
+    {
+        None,
+        Main,
+        Char,
+        ISE,
+        Inventory
+    }
 
+    public static MenuCentered currentMenuCentered;
+
+
+    public static MenuUIController singleton;
     public static Item.ItemType SelectedInventory;
 
     [Header("Sprites")]
@@ -54,23 +66,29 @@ public class MenuUIController : MonoBehaviour
 
     private Color grey = new Color(50.0f/ 255.0f, 50.0f / 255.0f, 50.0f / 255.0f);
     private bool CharMenu = false;
+    private Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
+        singleton = this;
         InventoryMenusPanel.SetActive(false);
         InventoryPanel.SetActive(false);
+
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        AnimationManager();
     }
 
 
     public void OnCharMenuClicked()
     {
+
+        currentMenuCentered = MenuCentered.Char;
         if (!CharMenu)
         {
             MenuButton.GetComponent<Image>().sprite = Clicked_Menu;                // if Character menu is activated
@@ -89,7 +107,9 @@ public class MenuUIController : MonoBehaviour
                                                                                    //
             UpdateItemsButton(false);                                              // change the sub-menus button colours to their default
             UpdateSkillsButton(false);                                             //
-            UpdateEquipsButton(true);                                              //
+            UpdateEquipsButton(false);                                             //
+
+            currentMenuCentered = MenuCentered.None;
         }
     }
 
@@ -154,6 +174,8 @@ public class MenuUIController : MonoBehaviour
             Items.GetComponentInChildren<Text>().color = Color.white;
             SelectedInventory = Item.ItemType.Item;
             InventoryMenu.singleton.UpdateInventoryUI();
+
+            currentMenuCentered = MenuCentered.ISE;
         }
         else
         {
@@ -172,6 +194,8 @@ public class MenuUIController : MonoBehaviour
             Skills.GetComponentInChildren<Text>().color = Color.white;
             SelectedInventory = Item.ItemType.Skill;
             InventoryMenu.singleton.UpdateInventoryUI();
+
+            currentMenuCentered = MenuCentered.ISE;
         }
         else
         {
@@ -189,6 +213,8 @@ public class MenuUIController : MonoBehaviour
             Equips.GetComponentInChildren<Text>().color = Color.white;
             SelectedInventory = Item.ItemType.Equipment;
             InventoryMenu.singleton.UpdateInventoryUI();
+
+            currentMenuCentered = MenuCentered.ISE;
         }
         else
         {
@@ -198,4 +224,61 @@ public class MenuUIController : MonoBehaviour
         }
     }
 
+
+
+    public void CloseAllMenus()
+    {
+        currentMenuCentered = MenuCentered.None;
+
+
+        MenuButton.GetComponent<Image>().sprite = Normal_Menu;                 // if charcter menu is deactivated
+        MenuButton.GetComponentsInChildren<Image>()[1].sprite = Social_grey;   //
+        InventoryMenusPanel.SetActive(false);                                  // hide the sub-menus and change the bbutton colour to white
+        CharMenu = false;                                                      //
+        InventoryPanel.SetActive(false);                                       // 
+
+        
+        UpdateItemsButton(false);                                              // change the sub-menus button colours to their default
+        UpdateSkillsButton(false);                                             //
+        UpdateEquipsButton(false);                                             //
+    }
+
+    private void AnimationManager()
+    {
+        if (currentMenuCentered == MenuCentered.Char)
+        {
+            anim.SetBool("charMenu", true);
+        }
+        else if (currentMenuCentered == MenuCentered.None)
+        {
+            anim.SetBool("charMenu", false);
+            anim.SetBool("ISE", false);
+        }
+
+
+        if (currentMenuCentered == MenuCentered.ISE)
+        {
+            anim.SetBool("ISE", true);
+        }
+    }
+
+    public void InventoryQuickOpen()
+    {
+        //Opens character menu
+        MenuButton.GetComponent<Image>().sprite = Clicked_Menu;                
+        MenuButton.GetComponentsInChildren<Image>()[1].sprite = Social_White;  
+        InventoryMenusPanel.SetActive(true);                                   
+        CharMenu = true;
+
+        //Opens item inventory menu
+        InventoryPanel.SetActive(true);
+        UpdateItemsButton(true);
+        UpdateSkillsButton(false);
+        UpdateEquipsButton(false);
+
+        currentMenuCentered = MenuCentered.ISE;
+
+        anim.SetBool("charMenu", true);
+        anim.SetBool("ISE", true);
+    }
 }

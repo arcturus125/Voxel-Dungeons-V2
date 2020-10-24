@@ -10,8 +10,8 @@ public class CameraController : MonoBehaviour
     public Transform pivot; // the object/entity the camera will orbit around, assigned in inspector
     public Transform target;
     public float distance = 5.0f; //the default/starting orbital distance from the target
-    public float xSpeed = 180.0f; //sensitivity on x axis, default 180
-    public float ySpeed = 180.0f; //sensitivity on y axis, default 180
+    public static float xSpeed = 180.0f; //sensitivity on x axis, default 180
+    public static float ySpeed = 180.0f; //sensitivity on y axis, default 180
 
     public float yMinLimit = -10f; // the lower camera angle limit to stop camera from clipping through the ground as much
     public float yMaxLimit = 80f; // the upper camera angle limit to stop camera looping round and becoming inverted

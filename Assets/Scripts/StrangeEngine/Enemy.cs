@@ -13,6 +13,10 @@ public class Enemy : ScriptableObject
     public int health = 100;
     public string enemyName = "geoff";
 
+    public Item[] drops;
+    [Header("Indexes must match!")]
+    public float[] dropChances;
+
     /// <summary>
     /// create an enemy with a name and health
     /// </summary>
@@ -22,17 +26,6 @@ public class Enemy : ScriptableObject
     {
         health = pHealth;
         enemyName = pName;
-    }
-
-    //check if the enemy has been killed
-    public bool CheckforKill()
-    {
-        if (health <= 0)
-        {
-            OnKill();
-            return true;
-        }
-        return false;
     }
 
 
