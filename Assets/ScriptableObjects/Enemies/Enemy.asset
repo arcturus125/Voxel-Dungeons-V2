@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5563bb6190e24d646a11608581104b77, type: 3}
+  m_Name: Enemy
+  m_EditorClassIdentifier: 
+  health: 10
+  enemyName: slime
+  drops:
+  - {fileID: 11400000, guid: 6074385d597ae54428a25d437e98b442, type: 2}
+  - {fileID: 11400000, guid: 6074385d597ae54428a25d437e98b442, type: 2}
+  - {fileID: 11400000, guid: 361df0daf128dad4ea6acceb5fd293b9, type: 2}
+  dropChances:
+  - 1
+  - 0.5
+  - 0.1

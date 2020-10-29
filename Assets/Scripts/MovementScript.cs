@@ -115,7 +115,7 @@ public class MovementScript : MonoBehaviour
         RaycastHit ArmsRaycast;
 
         // if the players send a raycast out from their feet and it hits the ground
-        if (Physics.Raycast(transform.position, transform.TransformDirection(direction), out FootRaycast, RayDistance)
+        if (Physics.Raycast(transform.position + new Vector3(0,0.1f,0), transform.TransformDirection(direction), out FootRaycast, RayDistance)
                     && FootRaycast.collider.gameObject.tag == "Ground")
         {
             // draw ray if in debug mode

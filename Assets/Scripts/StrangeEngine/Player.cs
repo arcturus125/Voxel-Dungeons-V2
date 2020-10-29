@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
         {
             //If player has a weapon equipped
             Weapon equippedWeapon = playerInv.inv[weaponEquippedIndex].convertItemToWeapon();
-            EnemyComponent enemy = enemyHit.gameObject.GetComponent<EnemyComponent>();
+            EnemyComponent enemy = enemyHit.gameObject.GetComponentInChildren<EnemyComponent>();
             enemy.Damage(equippedWeapon.Damage);
         }
     }

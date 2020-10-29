@@ -201,8 +201,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryIndexOfItem: 0
-  buttonOffset: 180
+  buttonOffsetY: 0
+  buttonOffsetX: 165
   Button_Text: {fileID: 4236456666356019062}
+  equipbutton: {fileID: 7456776203731907800, guid: f5315a990396d8742a46a5793b12bb9b,
+    type: 3}
 --- !u!1 &8803926751720012370
 GameObject:
   m_ObjectHideFlags: 0
