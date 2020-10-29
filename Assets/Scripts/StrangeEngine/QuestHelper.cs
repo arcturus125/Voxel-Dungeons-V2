@@ -26,7 +26,7 @@ public class QuestHelper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateHelper();
+        UpdateHelper(); // TODO: find a better way of doing this
     }
 
 

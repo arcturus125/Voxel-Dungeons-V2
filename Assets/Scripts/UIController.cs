@@ -50,6 +50,7 @@ public class UIController : MonoBehaviour
             ToggleMenus();
         }
 
+        // quick inventory open
         if (Input.GetKeyDown(KeyCode.I))
         {
             if (!isCursorVisible)
@@ -134,5 +135,9 @@ public class UIController : MonoBehaviour
     public static void ShowQuestHelper()
     {
         QuestHelperPanel.SetActive(true);
+    }
+    public static void HideQuestHelper()
+    {
+        QuestHelperPanel.SetActive(false);
     }
 }

@@ -125,7 +125,12 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 6e9888c5bb2b76b4f894592253b49118,
         type: 3}
       propertyPath: m_Name
-      value: Dagger
+      value: Dagger Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 6e9888c5bb2b76b4f894592253b49118,
+        type: 3}
+      propertyPath: m_TagString
+      value: Weapon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e9888c5bb2b76b4f894592253b49118, type: 3}

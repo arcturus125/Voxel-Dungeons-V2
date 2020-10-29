@@ -18,8 +18,10 @@ public class WeaponScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.GetComponentInChildren<EnemyComponent>())
+        {
             Player.singleton.Hit(other);
-        Debug.Log("EnemyHit");
+            Debug.Log("EnemyHit");
+        }
     }
 }
