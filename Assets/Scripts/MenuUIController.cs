@@ -15,7 +15,8 @@ public class MenuUIController : MonoBehaviour
         Main,
         Char,
         ISE,
-        Inventory
+        Inventory,
+        Quest
     }
 
     public static MenuCentered currentMenuCentered;
@@ -41,6 +42,9 @@ public class MenuUIController : MonoBehaviour
     public Sprite Social_grey;
     public Sprite Social_White;
 
+    public Sprite Msg_grey;
+    public Sprite Msg_white;
+
     public Sprite Item_grey;
     public Sprite Item_White;
 
@@ -54,65 +58,133 @@ public class MenuUIController : MonoBehaviour
 
     [Header("Buttons")]
     public Button MenuButton;
+    public Button QuestButton;
 
     public Button Items;
     public Button Skills;
     public Button Equips;
 
+    public Button QuestHelperButton;
+    public Button InProgressButton;
+    public Button CompletedButton;
+
 
     [Header("Panels")]
     public GameObject InventoryMenusPanel;
-    public GameObject InventoryPanel; 
+    public GameObject InventoryPanel;
+    public GameObject QuestPanel;
 
     private Color grey = new Color(50.0f/ 255.0f, 50.0f / 255.0f, 50.0f / 255.0f);
-    private bool CharMenu = false;
+    private bool CharMenuOpen = false;
+    private bool QuestMenuOpen = false;
     private Animator anim;
 
-    // Start is called before the first frame update
     void Start()
     {
         singleton = this;
         InventoryMenusPanel.SetActive(false);
         InventoryPanel.SetActive(false);
+        QuestPanel.SetActive(false);
 
         anim = GetComponent<Animator>();
     }
-
-    // Update is called once per frame
     void Update()
     {
         AnimationManager();
     }
 
+    /// #########
+    ///   main
+    /// #########
 
     public void OnCharMenuClicked()
     {
+        if (!CharMenuOpen)
+        {
+            UpdateCharMenu(true);
+        }
+        else
+        {
+            UpdateCharMenu(false);
+        }
+    }
+    public void OnQuestMenuClicked()
+    {
+        if (!QuestMenuOpen)
+        {
+            UpdateQuestMenu(true);                                               
+        }
+        else
+        {
+            UpdateQuestMenu(false);
+        }
+    }
 
-        currentMenuCentered = MenuCentered.Char;
-        if (!CharMenu)
+    private void UpdateCharMenu(bool isActivated, bool chainReaction = false)
+    {
+        if(isActivated)
         {
             MenuButton.GetComponent<Image>().sprite = Clicked_Menu;                // if Character menu is activated
             MenuButton.GetComponentsInChildren<Image>()[1].sprite = Social_White;  //
             InventoryMenusPanel.SetActive(true);                                   // open the sub-menus and change the buttons colour to orange
-            CharMenu = true;                                                       //
+            CharMenuOpen = true;
+
+            UpdateQuestMenu(false, true);
+
+            currentMenuCentered = MenuCentered.Char;
         }
         else
         {
             MenuButton.GetComponent<Image>().sprite = Normal_Menu;                 // if charcter menu is deactivated
             MenuButton.GetComponentsInChildren<Image>()[1].sprite = Social_grey;   //
             InventoryMenusPanel.SetActive(false);                                  // hide the sub-menus and change the bbutton colour to white
-            CharMenu = false;                                                      //
+            CharMenuOpen = false;                                                      //
             InventoryPanel.SetActive(false);                                       // 
 
-                                                                                   //
             UpdateItemsButton(false);                                              // change the sub-menus button colours to their default
             UpdateSkillsButton(false);                                             //
             UpdateEquipsButton(false);                                             //
 
             currentMenuCentered = MenuCentered.None;
+
+        }
+    }
+    private void UpdateQuestMenu(bool isActivated, bool chainReaction = false)
+    {
+        if(isActivated)
+        {
+            QuestButton.GetComponent<Image>().sprite = Clicked_Menu;
+            QuestButton.GetComponentsInChildren<Image>()[1].sprite = Msg_white;
+            QuestMenuOpen = true;
+            QuestPanel.SetActive(true);
+
+            UpdateCharMenu(false);
+
+            currentMenuCentered = MenuCentered.Quest;
+
+            UpdateQuestHelperButton(UIController.QuestHelperPanel.activeInHierarchy, true); // if the quest menu is active, update the button to show that
+        }
+        else
+        {
+            QuestButton.GetComponent<Image>().sprite = Normal_Menu;
+            QuestButton.GetComponentsInChildren<Image>()[1].sprite = Msg_grey;
+            QuestMenuOpen = false;
+            QuestPanel.SetActive(false);
+
+            if (!chainReaction)
+            {
+                InventoryPanel.SetActive(false);
+                InventoryMenusPanel.SetActive(false);
+            }
+
+            currentMenuCentered = MenuCentered.None;
         }
     }
 
+    /// #########
+    ///   ISE
+    /// #########
+   
     public void OnItemsInvClicked()
     {
         bool isClicked = true;
@@ -123,8 +195,11 @@ public class MenuUIController : MonoBehaviour
             isClicked = false;
         }
         else
+        {
             InventoryPanel.SetActive(true);
-        
+            
+        }
+
         //open the correct  inventory window
         UpdateItemsButton(isClicked);
         UpdateSkillsButton(false);
@@ -140,10 +215,12 @@ public class MenuUIController : MonoBehaviour
             isClicked = false;
         }
         else
+        {
             InventoryPanel.SetActive(true);
+        }
 
-        //open the correct  inventory window
-        UpdateItemsButton(false);
+            //open the correct  inventory window
+            UpdateItemsButton(false);
         UpdateSkillsButton(isClicked);
         UpdateEquipsButton(false);
     }
@@ -157,13 +234,20 @@ public class MenuUIController : MonoBehaviour
             isClicked = false;
         }
         else
+        {
             InventoryPanel.SetActive(true);
+        }
 
-        //open the correct  inventory window
-        UpdateItemsButton(false);
+            //open the correct  inventory window
+            UpdateItemsButton(false);
         UpdateSkillsButton(false);
         UpdateEquipsButton(isClicked);
     }
+
+
+    bool ItemsClicked = false;
+    bool SkillsClicked = false;
+    bool EquipsClicked = false;
 
     private void UpdateItemsButton(bool isClicked)
     {
@@ -176,12 +260,14 @@ public class MenuUIController : MonoBehaviour
             InventoryMenu.singleton.UpdateInventoryUI();
 
             currentMenuCentered = MenuCentered.ISE;
+            ItemsClicked = true;
         }
         else
         {
             Items.GetComponent<Image>().sprite = Normal_Submenu;
             Items.GetComponentsInChildren<Image>()[1].sprite = Item_grey;
             Items.GetComponentInChildren<Text>().color = grey;
+            ItemsClicked = false;
 
         }
     }
@@ -196,12 +282,14 @@ public class MenuUIController : MonoBehaviour
             InventoryMenu.singleton.UpdateInventoryUI();
 
             currentMenuCentered = MenuCentered.ISE;
+            SkillsClicked = true;
         }
         else
         {
             Skills.GetComponent<Image>().sprite = Normal_Submenu_Point;
             Skills.GetComponentsInChildren<Image>()[1].sprite = Skills_grey;
             Skills.GetComponentInChildren<Text>().color = grey;
+            SkillsClicked = false;
         }
     }
     private void UpdateEquipsButton(bool isClicked)
@@ -215,60 +303,137 @@ public class MenuUIController : MonoBehaviour
             InventoryMenu.singleton.UpdateInventoryUI();
 
             currentMenuCentered = MenuCentered.ISE;
+            EquipsClicked = true;
         }
         else
         {
             Equips.GetComponent<Image>().sprite = Normal_Submenu;
             Equips.GetComponentsInChildren<Image>()[1].sprite = Equipment_grey;
             Equips.GetComponentInChildren<Text>().color = grey;
+            EquipsClicked = false;
         }
     }
 
+    /// ################
+    ///     Quest
+    /// ################
+ 
+    public void OnQuestHelperClick()
+    {
+        bool isClicked = true;
+        if(UIController.QuestHelperPanel.activeInHierarchy)
+        {
+            isClicked = false;
+        }
+        UpdateQuestHelperButton(isClicked);
+        UIController.QuestHelperPanel.SetActive(isClicked);
 
+    }
+    public void OnInProgressClick()
+    {
+
+    }
+    public void OnCompletedClick()
+    {
+
+    }
+
+    private void UpdateQuestHelperButton(bool isClicked, bool justUpdateButton = false)
+    {
+        if (isClicked)
+        {
+            QuestHelperButton.GetComponent<Image>().sprite = Clicked_Submenu;
+            //QuestHelperButton.GetComponentsInChildren<Image>()[1].sprite = <quest helper sprite here> ;
+            QuestHelperButton.GetComponentInChildren<Text>().color = Color.white;
+
+            //currentMenuCentered = MenuCentered.ISE; // change to QuestSubmenu later
+        }
+        else
+        {
+            QuestHelperButton.GetComponent<Image>().sprite = Normal_Submenu;
+            //QuestHelperButton.GetComponentsInChildren<Image>()[1].sprite = <quest helper sprite here> ;
+            QuestHelperButton.GetComponentInChildren<Text>().color = grey;
+
+        }
+    }
+    private void UpdateInProgressButton(bool isClicked)
+    {
+        QuestMenu.selectedQuestMenu = QuestMenu.ESelectedQuestMenu.InProgress;
+    }
+    private void UpdateCompletedButton(bool isClicked)
+    {
+
+    }
+
+
+
+    /// #########
+    ///   other
+    /// #########
 
     public void CloseAllMenus()
     {
         currentMenuCentered = MenuCentered.None;
 
 
-        MenuButton.GetComponent<Image>().sprite = Normal_Menu;                 // if charcter menu is deactivated
-        MenuButton.GetComponentsInChildren<Image>()[1].sprite = Social_grey;   //
-        InventoryMenusPanel.SetActive(false);                                  // hide the sub-menus and change the bbutton colour to white
-        CharMenu = false;                                                      //
-        InventoryPanel.SetActive(false);                                       // 
+        UpdateCharMenu(false);    // change main menu button colours to their default
+        UpdateQuestMenu(false);   //  and close ant panels left open
 
-        
-        UpdateItemsButton(false);                                              // change the sub-menus button colours to their default
-        UpdateSkillsButton(false);                                             //
-        UpdateEquipsButton(false);                                             //
+
+
+        UpdateItemsButton(false);   // change the sub-menus button colours to their default
+        UpdateSkillsButton(false);  //
+        UpdateEquipsButton(false);  //
     }
-
     private void AnimationManager()
     {
+        if(anim.GetBool("QuickInvOpen"))
+            anim.SetBool("QuickInvOpen", false);
         if (currentMenuCentered == MenuCentered.Char)
         {
             anim.SetBool("charMenu", true);
+            anim.SetBool("Quest", false);
         }
         else if (currentMenuCentered == MenuCentered.None)
         {
             anim.SetBool("charMenu", false);
+            anim.SetBool("Quest", false);
             anim.SetBool("ISE", false);
         }
 
 
-        if (currentMenuCentered == MenuCentered.ISE)
+        else if (currentMenuCentered == MenuCentered.ISE)
         {
             anim.SetBool("ISE", true);
         }
-    }
 
+        else if(currentMenuCentered == MenuCentered.Quest)
+        {
+            anim.SetBool("Quest", true);
+            anim.SetBool("charMenu", false);
+            anim.SetBool("ISE", false);
+        }
+
+        if(ItemsClicked || SkillsClicked || EquipsClicked)
+        {
+            anim.SetBool("Inventory", true);
+        }
+        else
+        {
+            anim.SetBool("Inventory", false);
+        }
+
+        anim.SetBool("ItemInvOpen", ItemsClicked);
+        anim.SetBool("SkillsInvOpen", SkillsClicked);
+        anim.SetBool("EquipsInvOpen", EquipsClicked);
+    }
     public void InventoryQuickOpen()
     {
         //Opens character menu
         MenuButton.GetComponent<Image>().sprite = Clicked_Menu;                
         MenuButton.GetComponentsInChildren<Image>()[1].sprite = Social_White;  
         InventoryMenusPanel.SetActive(true);                                   
-        CharMenu = true;
+        CharMenuOpen = true;
 
         //Opens item inventory menu
         InventoryPanel.SetActive(true);
@@ -279,6 +444,7 @@ public class MenuUIController : MonoBehaviour
         currentMenuCentered = MenuCentered.ISE;
 
         anim.SetBool("charMenu", true);
-        anim.SetBool("ISE", true);
+        anim.SetBool("ISE", true); // set
+        anim.SetBool("QuickInvOpen", true);
     }
 }

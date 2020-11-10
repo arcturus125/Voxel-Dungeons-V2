@@ -48,6 +48,13 @@ MonoBehaviour:
   ParameterName: Wakeup
   distance: 0
   health: 0
+  hit: 0
+  rb: {fileID: 2145962631303210397}
+  walkSpeed: 0.7
+  AI_type: 2
+  SleepWhenBored: 0
+  speed: 0.01
+  maxWalkLength: 15
 --- !u!65 &7585132064695782739
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -352,6 +359,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1176098354761025746, guid: a698c921f11e4ab46a3e0516996243f9,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1206039097003675956, guid: a698c921f11e4ab46a3e0516996243f9,
         type: 3}

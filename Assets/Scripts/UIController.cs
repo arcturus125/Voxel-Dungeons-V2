@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class UIController : MonoBehaviour
 {
@@ -13,7 +11,10 @@ public class UIController : MonoBehaviour
     public static GameObject QuestHelperPanel;
     public static GameObject MenuPanel;
 
+    public static GameObject currentActiveInteractionSymbol;
+    public static Vector3 interactionButtonPositionforUI;
 
+    public static bool showInteractionbuttons = false;
     public static bool isCursorVisible = true; //when true, the user can use mouse to navigate menus without rotating the camera or player in game
     public static bool areMenusOpen = false;
     
@@ -30,12 +31,11 @@ public class UIController : MonoBehaviour
         DialoguePanel.SetActive(false);
 
         QuestHelperPanel = GameObject.Find("QuestHelperPanel");
-        QuestHelperPanel.SetActive(false);
+        //QuestHelperPanel.SetActive(false); // MOVED TO: InventoryMenu.awake()
 
         MenuPanel = GameObject.Find("MenuPanel");
         MenuPanel.SetActive(false);
 
-        ShowQuestHelper();
 
 
         ToggleMenus(); //default to cursor invisible on start
@@ -59,6 +59,7 @@ public class UIController : MonoBehaviour
             }
             MenuUIController.singleton.InventoryQuickOpen();
         }
+        UIInteractionButton();
     }
 
     /// <summary>
@@ -100,6 +101,66 @@ public class UIController : MonoBehaviour
     {
         InteractionPanel.SetActive(true);
         InteractionPanel.GetComponentInChildren<Text>().text = message;
+    }
+
+
+    public static void ShowAdvancedInteractionTooltip(Transform InteractionButtonPosition)
+    {
+        if(currentActiveInteractionSymbol)
+        {
+            Destroy(currentActiveInteractionSymbol);
+        }
+        currentActiveInteractionSymbol = Instantiate(  Resources.Load<GameObject>("InteractionButton"));
+        currentActiveInteractionSymbol.transform.position = InteractionButtonPosition.position;
+        currentActiveInteractionSymbol.transform.rotation = InteractionButtonPosition.parent.rotation;
+
+    }
+    public static void ShowAdvancedInteractionTooltipCancel(Transform InteractionButtonPosition)
+    {
+        if (currentActiveInteractionSymbol)
+        {
+            Destroy(currentActiveInteractionSymbol);
+        }
+        currentActiveInteractionSymbol = Instantiate(Resources.Load<GameObject>("InteractionButton_cancel"));
+        currentActiveInteractionSymbol.transform.position = InteractionButtonPosition.position;
+        currentActiveInteractionSymbol.transform.rotation = InteractionButtonPosition.parent.rotation;
+
+    }
+
+    public static void SetUiInteractionButtonPosition(Transform InteractionButtonPosition)
+    {
+        interactionButtonPositionforUI = InteractionButtonPosition.position;
+        showInteractionbuttons = true;
+    }
+    public static void RemoveUiInteractionButtonPosition()
+    {
+        showInteractionbuttons = false;
+        if (currentActiveInteractionSymbol)
+        {
+            Destroy(currentActiveInteractionSymbol);
+        }
+    }
+    public void UIInteractionButton()
+    {
+        if(showInteractionbuttons)
+        {
+            Vector3 UIButtonPosition = CameraController.mainCam.WorldToScreenPoint(interactionButtonPositionforUI);
+            if(currentActiveInteractionSymbol)
+            {
+                Destroy(currentActiveInteractionSymbol);
+            }
+            currentActiveInteractionSymbol = Instantiate(Resources.Load<GameObject>("UI Cancel Button"), this.transform);
+            currentActiveInteractionSymbol.transform.position = UIButtonPosition;
+        }
+    }
+
+    public static void HideAdvancedInteractionTooltip()
+    {
+        if (currentActiveInteractionSymbol)
+        {
+            Destroy(currentActiveInteractionSymbol);
+        }
+
     }
     /// <summary>
     /// hide "press f to interact"

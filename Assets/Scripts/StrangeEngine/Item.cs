@@ -33,6 +33,7 @@ public class Item : ScriptableObject
         info = pInfo;
         worth = pWorth;
         itemStats = pStats;
+        isStackable = false;
     }
     public Item(ItemType pType, int pID, string pName, string pInfo, int pWorth, Dictionary<string, int> pStats, bool pIsStackable)
     {

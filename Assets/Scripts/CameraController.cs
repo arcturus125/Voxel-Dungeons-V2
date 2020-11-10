@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour
      *  https://wiki.unity3d.com/index.php/MouseOrbitImproved#Code_C.23
      */
 
+    public static Camera mainCam;
 
     public Transform pivot; // the object/entity the camera will orbit around, assigned in inspector
     public Transform target;
@@ -31,6 +32,8 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
+        mainCam = GetComponent<Camera>();
+
         Vector3 angles = transform.eulerAngles;
         x = angles.y;
         y = angles.x;

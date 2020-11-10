@@ -26,7 +26,6 @@ public class Inventory
     //add an item to the inventory
     public void AddItem(Item pItem)
     {
-        //if the item is stackable, the increase it's quantiy
         if (pItem.isStackable)
         {
             //search for item
@@ -57,7 +56,7 @@ public class Inventory
             inv.Add(newSlot);
         }
 
-        InventoryMenu.singleton.UpdateInventoryUI(); // update the UI for the inventory
+        //InventoryMenu.singleton.UpdateInventoryUI(); // update the UI for the inventory
     }
     //remove and item from the inventory
     public void RemoveItem(Item pItem)
@@ -92,7 +91,7 @@ public class Inventory
             inv.Remove(inv[searchInvByItem(pItem)]);
         }
 
-        InventoryMenu.singleton.UpdateInventoryUI();  // update the UI for the inventory
+        //InventoryMenu.singleton.UpdateInventoryUI();  // update the UI for the inventory
     }
 }
 public class InventorySlot

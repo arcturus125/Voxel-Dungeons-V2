@@ -39,7 +39,6 @@ public class EnemyPart : MonoBehaviour
         else
         {
 
-            Debug.Log("Something hit me but it was not a weapon: " + other.gameObject.name);
         }
     }
 

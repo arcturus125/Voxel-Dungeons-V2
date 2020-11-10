@@ -1,0 +1,48 @@
+using UnityEngine;
+
+public class #SCRIPTNAME# : MonoBehaviour
+{
+    public Transform interactionButtonLocation;
+
+
+    void Start()
+    {
+    }
+
+    void Update()
+    {
+        if (PlayerInteraction.ClosestInteractible) // error avoidance
+        {
+            // if this object is is the closest interactible
+            if (this.gameObject == PlayerInteraction.ClosestInteractible)
+            {
+                //display the  UI interaction button
+                UIController.SetUiInteractionButtonPosition(this.interactionButtonLocation);
+            }
+        }
+        
+        
+    }
+
+    public void OnNearby()
+    {
+        //add this gameobject to a list of interactible objects
+        PlayerInteraction.AddInteractible(this.gameObject);
+    }
+
+    public void NoLongerNearby()
+    {
+        // remove this objecct from the list of interactibles
+        PlayerInteraction.RemoveInteractible(this.gameObject);
+    }
+	
+	public void WhileNearby()
+	{
+	
+	}
+    public void Use()
+    {
+	
+    }
+}
+    

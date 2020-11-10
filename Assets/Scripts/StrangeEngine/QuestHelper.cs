@@ -40,9 +40,9 @@ public class QuestHelper : MonoBehaviour
         //destroy objectives before making duplicates
         DestroyObjectives();
 
-        if (Quest.ActiveQuest != null)
+        if (Quest.trackedQuest != null)
         {
-            for (int i = 0; i < Quest.ActiveQuest.objectives.Count; i++)
+            for (int i = 0; i < Quest.trackedQuest.objectives.Count; i++)
             {
                 //creating the gameobject, and dealing with inheritence
                 GameObject newGO = new GameObject("Objective");
@@ -50,13 +50,13 @@ public class QuestHelper : MonoBehaviour
 
                 //text
                 Text newGOtext = newGO.AddComponent<Text>();
-                if (!Quest.ActiveQuest.objectives[i].objectiveComplete)
+                if (!Quest.trackedQuest.objectives[i].objectiveComplete)
                 {
-                    newGOtext.text = "- " + Quest.ActiveQuest.objectives[i].title;
+                    newGOtext.text = "- " + Quest.trackedQuest.objectives[i].title;
                 }
                 else
                 {
-                    newGOtext.text = "+ (Completed)   " + Quest.ActiveQuest.objectives[i].title;
+                    newGOtext.text = "+ (Completed)   " + Quest.trackedQuest.objectives[i].title;
                 }
                 newGOtext.verticalOverflow = VerticalWrapMode.Overflow;
                 
