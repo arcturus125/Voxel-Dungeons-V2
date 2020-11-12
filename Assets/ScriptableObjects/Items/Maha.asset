@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Maha
-  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  m_Script: {fileID: 11500000, guid: d3fd377703b62bb4fa914f645bdff397, type: 3}
+  m_Name: maha
+  m_EditorClassIdentifier: 
   type: 3
-  ID: 1
-  itemName: Maha
-  info: this is an axe
-  worth: 0
+  ID: 2
+  itemName: maha
+  info: ' poleaxe'
+  worth: 100
   isStackable: 0
   Damage: 10
   WeaponModelPrefab: {fileID: 414644056495394334, guid: 7a883c350192fd94db2102cbcd0498ad,

@@ -9,7 +9,8 @@ using UnityEngine;
 
 public class Quest
 {
-    public static Quest ActiveQuest = null;
+    public static Quest trackedQuest = null;
+    public static List<Quest> activeQuests = new List<Quest>();
 
     public bool complete = false; // becomes true when all steps of the quest are complete
     public bool started = false; // becomes true when the quest has been given to the player

@@ -24,9 +24,17 @@ public class InventoryMenu : MonoBehaviour
     {
         singleton = this;
     }
+
+    private void Update()
+    {
+        //if(MenuUIController.singleton.InventoryPanel.activeInHierarchy)
+        //{
+        //    UpdateInventoryUI();
+        //}
+    }
+
     public void UpdateInventoryUI()
     {
-        //Debug.Log("INV UI UPDATED :" + Player.playerInv.inv.Count);
         foreach(InventoryMenuItem imi in prefabList)
         {
             DestroyImmediate(imi.gameObject);

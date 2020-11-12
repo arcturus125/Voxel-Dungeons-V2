@@ -1,14 +1,14 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class john : MonoBehaviour
 {
-
+    public Transform interactionButtonLocation;
     //items
     public Item apple ;
     public Item sword2;
-
 
     public Enemy slime;
 
@@ -60,26 +60,22 @@ public class john : MonoBehaviour
         Player.playerInv.AddItem(sword2);
         Player.playerInv.AddItem(sword2);
 
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        //InventoryMenu.singleton.UpdateInventoryUI(); // update the UI for the inventory
-
-        //Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, 7.5f);
-       
-        //if (nearbyColliders.Length < 3)
-        //{
-        //    questDialogue.HideDialogue();
-        //}
+        if (this.gameObject == PlayerInteraction.ClosestInteractible)
+            UIController.SetUiInteractionButtonPosition(this.interactionButtonLocation);
     }
     public void OnNearby()
     {
-        UIController.ShowInteractionTooltip("press F to talk to john");
+        PlayerInteraction.AddInteractible(this.gameObject);
     }
     public void NoLongerNearby()
     {
+        PlayerInteraction.RemoveInteractible(this.gameObject);
         UIController.HideInteractionTooltip();
         questDialogue.HideDialogue();
     }

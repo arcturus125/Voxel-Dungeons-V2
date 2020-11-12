@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public static Inventory playerInv = new Inventory(); // create an inventory for the player
     public GameObject WeaponSlot;
 
+
     public int weaponEquippedIndex = -1; //-1 is rogue value
 
     private void Awake()
