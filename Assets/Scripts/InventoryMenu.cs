@@ -35,7 +35,6 @@ public class InventoryMenu : MonoBehaviour
 
     public void UpdateInventoryUI()
     {
-        //Debug.Log("INV UI UPDATED :" + Player.playerInv.inv.Count);
         foreach(InventoryMenuItem imi in prefabList)
         {
             DestroyImmediate(imi.gameObject);

@@ -26,32 +26,41 @@ public class Inventory
     //add an item to the inventory
     public void AddItem(Item pItem)
     {
-        if (pItem.isStackable)
+        try
         {
-            //search for item
-            int found = -1;
-            for( int i = 0; i < inv.Count;i++ )
+            if (pItem.isStackable)
             {
-                if(inv[i].item == pItem)
+                //search for item
+                int found = -1;
+                for (int i = 0; i < inv.Count; i++)
                 {
-                    found = i;
+                    if (inv[i].item == pItem)
+                    {
+                        found = i;
+                    }
+                }
+                //if found
+                if (found != -1)
+                {
+                    inv[found].quantity++;
+                }
+                //if not found
+                else
+                {
+                    InventorySlot newSlot = new InventorySlot(pItem);
+                    inv.Add(newSlot);
                 }
             }
-            //if found
-            if(found != -1)
-            {
-                inv[found].quantity++;
-            }
-            //if not found
+            //if the item is not stackable then add another to the inventory
             else
             {
                 InventorySlot newSlot = new InventorySlot(pItem);
                 inv.Add(newSlot);
             }
         }
-        //if the item is not stackable then add another to the inventory
-        else
+        catch(System.Exception)
         {
+            //if the item is not stackable then add another to the inventory
             InventorySlot newSlot = new InventorySlot(pItem);
             inv.Add(newSlot);
         }
@@ -103,9 +112,15 @@ public class InventorySlot
     public InventorySlot(Item pItem)
     {
         item = pItem;
-        if (pItem.isStackable)
+        try
         {
-            isStackable = true;
+            if (pItem.isStackable)
+            {
+                isStackable = true;
+            }
+        }catch(System.Exception)
+        {
+            isStackable = false;
         }
     }
 
